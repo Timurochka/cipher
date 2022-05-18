@@ -9,7 +9,7 @@ def cipher():
     k = key.split(" ")
     new = ""
     for i in range(n):
-        new += str(text[int(k[i])])
+        new += str(text[n - int(k[i]) - 1])
     print(new)
 
 
