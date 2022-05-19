@@ -12,7 +12,7 @@ def code(k, text):
         new = [text[i + j] for j in range(blocksize)]
         for j in range(blocksize):
             code += str(new[blocksize - int(k[j]) - 1])
-    print(code)
+    return code
 
 
 def letter(k, text):
@@ -20,9 +20,9 @@ def letter(k, text):
     n = len(text)
     if n % blocksize != 0:
         for i in range(blocksize - (n % blocksize)):
-            text += str("\0")
+            text += str("§")
             # text += str(chr(random.randrange(ord('a'), ord('z'), 1)))
-    code(k, text)
+    print(code(k, text))
 
 
 def group(k, text):
@@ -30,8 +30,8 @@ def group(k, text):
     te_xt = [text[i:i+poskolko] for i in range(0, len(text), poskolko)]
     if len(te_xt[-1]) != poskolko:
         for i in range(poskolko - (len(te_xt[-1]) % poskolko)):
-            te_xt[-1] += str("\0")
-    code(k, te_xt)
+            te_xt[-1] += str("§")
+    print(code(k, te_xt))
 
 
 def word(k, text):
@@ -39,7 +39,7 @@ def word(k, text):
     te_xt = text.split(" ")
     if len(te_xt) != blocksize:
         for i in range(blocksize - (len(te_xt) % blocksize)):
-            te_xt.append("\0"*5)
+            te_xt.append("§"*5)
     n = len(te_xt)
     new = ''
     code = ''
@@ -75,27 +75,27 @@ def decode(k, text):
         new = [text[i + j] for j in range(blocksize)]
         for j in range(blocksize):
             code += str(new[blocksize - int(k[j]) - 1])
-    code = code.replace("\0", "")
-    print(code)
+    code = code.replace("§", "")
+    return code
 
 
 def deletter(k, text):
     for i in range(len(k)//2):
         k[i], k[-i-1] = k[-i-1], k[i]
-    decode(k, text)
+    print(decode(k, text))
 
 
-#def degroup(k, text):
+def degroup(k, text):
+    poskolko = int(input("По сколько символов было сгруппировано? "))
+    te_xt = [text[i:i + poskolko] for i in range(0, len(text), poskolko)]
+    print(decode(k, te_xt))
 
 
 def deword(k, text):
+    te_xt = text.split()
     for i in range(len(k)//2):
         k[i], k[-i-1] = k[-i-1], k[i]
     blocksize = len(k)
-    te_xt = text.split(" ")
-    if len(te_xt) != blocksize:
-        for i in range(blocksize - (len(te_xt) % blocksize)):
-            te_xt.append("\0" * 5)
     n = len(te_xt)
     new = ''
     code = ''
@@ -104,7 +104,7 @@ def deword(k, text):
         for j in range(blocksize):
             code += str(new[blocksize - int(k[j]) - 1])
             code += " "
-    code = code.replace("\0", "")
+    code = code.replace("§", "")
     print(code)
 
 
