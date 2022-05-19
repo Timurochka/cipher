@@ -66,12 +66,21 @@ def cipher():
         word(k, text)
 
 
+def anticipher():
+    text = input("Введите зашиврованный текст: ")
+    key = input("Введите ключ: ")
+    k = key.split(" ")
+    for i in range(len(k)//2):
+        k[i], k[-i-1] = k[-i-1], k[i]
+    code(k, text)
+
+
 print("     Вот что я умею:\n     1 - зашифровать\n     2 - расшифровать")
 move = int(input("Пожалуйста, выберите действие: "))
 if move == 1:
     cipher()
 else:
-    pass
+    anticipher()
 
 text = 0
 
