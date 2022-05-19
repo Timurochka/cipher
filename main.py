@@ -35,11 +35,20 @@ def group(k, text):
 
 
 def word(k, text):
+    blocksize = len(k)
     te_xt = text.split(" ")
-    if len(te_xt) != len(k):
-        for i in range(len(k) - (len(te_xt) % len(k))):
-            te_xt.append("\0"*)
-    code(k, te_xt)
+    if len(te_xt) != blocksize:
+        for i in range(blocksize - (len(te_xt) % blocksize)):
+            te_xt.append("\0"*5)
+    n = len(te_xt)
+    new = ''
+    code = ''
+    for i in range(0, n, blocksize):
+        new = [te_xt[i + j] for j in range(blocksize)]
+        for j in range(blocksize):
+            code += str(new[blocksize - int(k[j]) - 1])
+            code += " "
+    print(code)
 
 
 def cipher():
