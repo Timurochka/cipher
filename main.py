@@ -88,6 +88,8 @@ def deletter(k, text):
 def degroup(k, text):
     poskolko = int(input("По сколько символов было сгруппировано? "))
     te_xt = [text[i:i + poskolko] for i in range(0, len(text), poskolko)]
+    for i in range(len(k)//2):
+        k[i], k[-i-1] = k[-i-1], k[i]
     print(decode(k, te_xt))
 
 
