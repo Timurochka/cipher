@@ -66,13 +66,43 @@ def cipher():
         word(k, text)
 
 
-def anticipher():
-    text = input("Введите зашиврованный текст: ")
-    key = input("Введите ключ: ")
-    k = key.split(" ")
+def decode(k, text):
+    blocksize = len(k)
+    n = len(text)
+    new = ''
+    code = ''
+    for i in range(0, n, blocksize):
+        new = [text[i + j] for j in range(blocksize)]
+        for j in range(blocksize):
+            code += str(new[blocksize - int(k[j]) - 1])
+    code = code.replace("\0", "")
+    print(code)
+
+
+def deletter(k, text):
     for i in range(len(k)//2):
         k[i], k[-i-1] = k[-i-1], k[i]
-    code(k, text)
+    decode(k, text)
+
+
+#def degroup(k, text):
+
+
+def deword(k, text):
+
+
+def decipher():
+    text = input("Введите зашиврованный текст: ")
+    key = input("Введите ключ: ")
+    print("     1 - посимвольное шифрование\n     2 - шифрование группы\n     3 - шифрование слов")
+    how = int(input("Способ шифровки: "))
+    k = key.split(" ")
+    if how == 1:
+        deletter(k, text)
+    if how == 2:
+        degroup(k, text)
+    if how == 3:
+        deword(k, text)
 
 
 print("     Вот что я умею:\n     1 - зашифровать\n     2 - расшифровать")
@@ -80,7 +110,7 @@ move = int(input("Пожалуйста, выберите действие: "))
 if move == 1:
     cipher()
 else:
-    anticipher()
+    decipher()
 
 text = 0
 
