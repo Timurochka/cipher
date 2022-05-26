@@ -15,16 +15,20 @@ def letter(key, text):
     n = len(text)
     if n % blocksize != 0:
         for i in range(blocksize - (n % blocksize)):
-            text += str("§")
+            text += str("☭")
     print(code(key, text))
 
 
 def group(key, text):
+    blocksize = len(key)
     poskolko = int(input("По сколько символов нужно группировать? "))
     te_xt = [text[i:i+poskolko] for i in range(0, len(text), poskolko)]
     if len(te_xt[-1]) != poskolko:
         for i in range(poskolko - (len(te_xt[-1]) % poskolko)):
-            te_xt[-1] += str("§")
+            te_xt[-1] += str("☭")
+    if len(te_xt) != blocksize:
+        for i in range(blocksize - (len(te_xt) % blocksize)):
+            te_xt.append("☭" * poskolko)
     print(code(key, te_xt))
 
 
@@ -33,7 +37,7 @@ def word(key, text):
     te_xt = text.split(" ")
     if len(te_xt) != blocksize:
         for i in range(blocksize - (len(te_xt) % blocksize)):
-            te_xt.append("§"*5)
+            te_xt.append("☭"*5)
     n = len(te_xt)
     block = ''
     code = ''
@@ -72,7 +76,7 @@ def decode(key, text):
         block = [text[i + j] for j in range(blocksize)]
         for j in range(blocksize):
             code += block[key.index(j)]
-    code = code.replace("§", "")
+    code = code.replace("☭", "")
     return code
 
 
@@ -103,7 +107,7 @@ def deword(key, text):
         for j in range(blocksize):
             code += block[key.index(j)]
             code += " "
-    code = code.replace("§", "")
+    code = code.replace("☭", "")
     print(code)
 
 
@@ -134,8 +138,7 @@ def start():
     else:
         decipher()
 
-
+        
 while(True):
-
     start()
     text = 0
