@@ -75,29 +75,23 @@ def decode(key, text):
     for i in range(0, n, blocksize):
         block = [text[i + j] for j in range(blocksize)]
         for j in range(blocksize):
-            code += block[key.index(j)]
+            code += block[key[j]]
     code = code.replace("☭", "")
     return code
 
 
 def deletter(key, text):
-    for i in range(len(key)//2):
-        key[i], key[-i-1] = key[-i-1], key[i]
     print(decode(key, text))
 
 
 def degroup(key, text):
     poskolko = int(input("По сколько символов было сгруппировано? "))
     te_xt = [text[i:i + poskolko] for i in range(0, len(text), poskolko)]
-    for i in range(len(key)//2):
-        key[i], key[-i-1] = key[-i-1], key[i]
     print(decode(key, te_xt))
 
 
 def deword(key, text):
     te_xt = text.split()
-    for i in range(len(key)//2):
-        key[i], key[-i-1] = key[-i-1], key[i]
     blocksize = len(key)
     n = len(te_xt)
     block = ''
@@ -105,7 +99,7 @@ def deword(key, text):
     for i in range(0, n, blocksize):
         block = [te_xt[i + j] for j in range(blocksize)]
         for j in range(blocksize):
-            code += block[key.index(j)]
+            code += block[key[j]]
             code += " "
     code = code.replace("☭", "")
     print(code)
@@ -138,7 +132,7 @@ def start():
     else:
         decipher()
 
-        
+
 while(True):
     start()
     text = 0
